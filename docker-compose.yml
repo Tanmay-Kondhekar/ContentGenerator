@@ -1,0 +1,24 @@
+services:
+  web:
+    build: .
+    container_name: content_gen_app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: aigen
+    restart: always
+    environment:
+      POSTGRES_USER: tammy
+      POSTGRES_PASSWORD: tammy
+      POSTGRES_DB: aigen
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data: {}
